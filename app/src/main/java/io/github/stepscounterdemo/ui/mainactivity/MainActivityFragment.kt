@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import io.github.stepscounterdemo.R
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivityFragment : Fragment() {
 
@@ -26,7 +28,10 @@ class MainActivityFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.init(context!!)
+        viewModel.counter.observe(this, Observer {
+            message.text = "Steps: $it"
+        })
     }
 
 }
